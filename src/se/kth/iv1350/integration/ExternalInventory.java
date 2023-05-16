@@ -41,13 +41,16 @@ public class ExternalInventory {
       @param itemIdentifier the unique identifier of the item to be retrieved
       @return the Item object with the given itemIdentifier, or null if it is not found
      */
-    public Item retrieveItem(int itemIdentifier){
+    public Item retrieveItem(int itemIdentifier) throws DatabaseFailureException, InvalidItemIdentifierException{
+        if (itemIdentifier == 6){
+            throw new DatabaseFailureException("ERROR: Database could not be accessed");
+        }
         for (Item item: storeItems){ 
             if (item.getItemIdentifier() == itemIdentifier){ 
                 return item; 
             }
         }
-    return null; 
+        throw new InvalidItemIdentifierException("ERROR: Item Identifier " + itemIdentifier + " not valid, item not found in inventory");
     }
 
     /**

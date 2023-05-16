@@ -8,9 +8,11 @@ import se.kth.iv1350.model.*;
  */
 public class controller {
     private Sale sale; 
+    public Payment payment;
+    private Receipt receipt;
     private ExternalInventory extInv;
     private ExternalAccounting extAcc;
-    private Printer printer; 
+    public Printer printer; 
     
     /**
      * Creates an instance of controller
@@ -38,15 +40,11 @@ public class controller {
      * @param quantity Quantity of requested item for calculation. 
      * @return sale.getSaleInfo() returns the SaleDTO updated.
      */
-    public SaleDTO registerItem(int itemIdentifier, double quantity){
+    public SaleDTO registerItem(int itemIdentifier, double quantity) throws DatabaseFailureException, InvalidItemIdentifierException{
         
         Item item = extInv.retrieveItem(itemIdentifier); 
-        if (item == null){
-            System.out.println("Invalid Item Identifier: " + Integer.toString(itemIdentifier));
-        }
-        else{
             sale.calculateCost(item, quantity, sale); 
-        }
+            
     return sale.getSaleInfo();
     }
 
@@ -56,10 +54,13 @@ public class controller {
     */
     public void pay(double paidAmount){
         
-        Payment payment = new Payment(paidAmount, sale.getSaleInfo().getRunningTotal());
+        payment = new Payment(paidAmount, sale.getSaleInfo().getRunningTotal());
         extAcc.updateAccounting(paidAmount);
         extInv.updateInventory(sale);
-        Receipt receipt = new Receipt(sale, payment);
+    }
+
+    public void getReceipt(){
+        receipt = new Receipt(sale, payment); 
         printer.printReceipt(receipt);
     }
 }

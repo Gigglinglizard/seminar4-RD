@@ -81,4 +81,5 @@ public class Sale {
     public List<Item> getItems() {
         return items;
     }
+
 }

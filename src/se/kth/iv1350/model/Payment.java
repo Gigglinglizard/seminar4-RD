@@ -6,9 +6,9 @@ package se.kth.iv1350.model;
  */
 public class Payment {
     
-    private double paidAmount; 
+    public double paidAmount; 
     private double runningTotal; 
-    private double change; 
+    public double change; 
 
     /**
      Creates a new instance of Payment with the specified paid amount and running total.
@@ -18,6 +18,7 @@ public class Payment {
     public Payment(double paidAmount, double runningTotal){
         this.paidAmount = paidAmount; 
         this.runningTotal = runningTotal;
+        change = paidAmount - runningTotal;
     }
     /**
       Gets the amount paid by the customer.
@@ -39,8 +40,7 @@ public class Payment {
       Calculates and returns the change to be returned to the customer.
       @return The change to be returned to the customer.
      */
-    public double getChange(){
-        change = paidAmount - runningTotal; 
-        return change;  
+    public double getChange(){ 
+         return change;  
     }
 }
