@@ -1,7 +1,9 @@
 package se.kth.iv1350.controller;
 
+import logAPI.FileLogger;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*; 
+import java.time.LocalDateTime;
 
 /**
  * Creates the controller class. 
@@ -13,6 +15,7 @@ public class controller {
     private ExternalInventory extInv;
     private ExternalAccounting extAcc;
     public Printer printer; 
+    private FileLogger logger;
     
     /**
      * Creates an instance of controller
@@ -24,6 +27,7 @@ public class controller {
         this.extInv = extInv; 
         this.extAcc = extAcc;
         this.printer = printer; 
+        logger = new FileLogger();
     }
     /**
      * Creates a new Sale object and returns a SaleDTO object representing the current sale state.
@@ -41,10 +45,17 @@ public class controller {
      * @return sale.getSaleInfo() returns the SaleDTO updated.
      */
     public SaleDTO registerItem(int itemIdentifier, double quantity) throws DatabaseFailureException, InvalidItemIdentifierException{
-        
+        try{
         Item item = extInv.retrieveItem(itemIdentifier); 
             sale.calculateCost(item, quantity, sale); 
-            
+        }catch (DatabaseFailureException exception){
+            logger.log(java.time.LocalDateTime.now() + " --- " + "ERROR: Database could not be reached");
+            throw exception;
+        }catch(InvalidItemIdentifierException exception){
+            logger.log(java.time.LocalDateTime.now() + " --- " + "ERROR: Identifier " + itemIdentifier + " is not valid, please check inventory.");
+            throw exception;
+        }
+
     return sale.getSaleInfo();
     }
 

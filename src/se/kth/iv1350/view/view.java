@@ -14,19 +14,12 @@ public class view {
     public void test(){
         try{
             contr.startSale();
-
             contr.registerItem(2, 2.0);
-
             contr.registerItem(2, 2.0);
-
             contr.registerItem(3, 4.0);
-
             //contr.registerItem(7,3.0);
-
             contr.registerItem(1, 10.0);
-
             contr.registerItem(4, 5.0);
-
             contr.registerItem(6, 4.0);
         } 
         catch(DatabaseFailureException exception){

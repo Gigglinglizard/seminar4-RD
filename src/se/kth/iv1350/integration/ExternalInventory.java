@@ -11,6 +11,7 @@ import se.kth.iv1350.model.*;
 public class ExternalInventory {
     private List<Item> storeItems = new ArrayList<>(); 
 	private List<ItemDescription> itemDescriptions = new ArrayList<>(); 
+    
 
     
     /**
@@ -43,6 +44,7 @@ public class ExternalInventory {
      */
     public Item retrieveItem(int itemIdentifier) throws DatabaseFailureException, InvalidItemIdentifierException{
         if (itemIdentifier == 6){
+
             throw new DatabaseFailureException("ERROR: Database could not be accessed");
         }
         for (Item item: storeItems){ 
