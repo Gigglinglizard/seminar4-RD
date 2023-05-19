@@ -1,8 +1,12 @@
 package se.kth.iv1350.controller;
 
 import logAPI.FileLogger;
+import logAPI.TotalRevenueFileOutput;
 import se.kth.iv1350.integration.*;
-import se.kth.iv1350.model.*; 
+import se.kth.iv1350.model.*;
+import se.kth.iv1350.view.TotalRevenueView;
+
+import java.util.*; 
 
 /**
  * Creates the controller class. 
@@ -15,7 +19,9 @@ public class controller {
     private ExternalAccounting extAcc;
     public Printer printer; 
     private FileLogger logger;
-    public double quantity;
+    public double quantity; 
+    private TotalRevenueView totalRevenueView;
+    private TotalRevenueFileOutput totalRevenueFileOutput;
     
     /**
      * Creates an instance of controller
@@ -28,6 +34,8 @@ public class controller {
         this.extAcc = extAcc;
         this.printer = printer;  
         logger = new FileLogger();
+        totalRevenueFileOutput = new TotalRevenueFileOutput();
+        totalRevenueView = new TotalRevenueView();
     }
     /**
      * Creates a new Sale object and returns a SaleDTO object representing the current sale state.
@@ -36,6 +44,8 @@ public class controller {
     public SaleDTO startSale() {
         
         this.sale = new Sale();
+        sale.addSaleObserver(totalRevenueFileOutput);
+        sale.addSaleObserver(totalRevenueView);
         return sale.getSaleInfo();
     }
     /**
@@ -66,6 +76,7 @@ public class controller {
     public void pay(double paidAmount){
         
         payment = new Payment(paidAmount, sale.getSaleInfo().getRunningTotal());
+        sale.notifyObservers(sale.getSaleInfo().getRunningTotal()); 
         extAcc.updateAccounting(paidAmount);
         extInv.updateInventory(sale);
     }
@@ -77,7 +88,7 @@ public class controller {
 
     public void endSale(){
         for (Item item: sale.getItems()){
-           item.setQuantity(0.0);;
+           item.setQuantity(0.0);
         }
     }
 }

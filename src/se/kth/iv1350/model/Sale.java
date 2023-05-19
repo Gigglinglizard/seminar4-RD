@@ -11,6 +11,7 @@ public class Sale {
     private SaleDTO saleInfo;
     private double runningTotal; 
     private double addedVAT;
+    private List<SaleObserver> saleObservers = new ArrayList<>();
     
     
      //Creates a new instance of Sale with current date and time, an empty list of items, and a SaleDTO with zero running total, zero VAT and null items.
@@ -80,5 +81,15 @@ public class Sale {
 
     public List<Item> getItems() {
         return items;
+    }
+
+    public void addSaleObserver(SaleObserver saleObserver){
+        saleObservers.add(saleObserver);
+    }
+
+    public void notifyObservers(Double runningTotal){
+        for (SaleObserver saleObserver : saleObservers) {
+            saleObserver.addRevenue(runningTotal);
+        }
     }
 }
