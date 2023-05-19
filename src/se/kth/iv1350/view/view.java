@@ -30,7 +30,27 @@ public class view {
         }
         contr.pay(600.0); 
         System.out.println("\n");
-        contr.getReceipt(); 
+        contr.getReceipt();
+        contr.endSale(); 
+
+
+        try{
+            contr.startSale();
+            contr.registerItem(4, 2.0);
+            contr.registerItem(1, 2.0);
+            contr.registerItem(3, 4.0);
+            //contr.registerItem(7,3.0);
+        } 
+        catch(DatabaseFailureException exception){
+            System.out.println("ERROR: Database Offline, please contact IT support.");
+        }
+        catch(InvalidItemIdentifierException exception){
+            System.out.print("ERROR: Invalid Item Identifier.");
+        }
+        contr.pay(600.0); 
+        System.out.println("\n");
+        contr.getReceipt();
+        contr.endSale(); 
     }
 }
 

@@ -10,7 +10,7 @@ public class Sale {
     private List<Item> items;
     private SaleDTO saleInfo;
     private double runningTotal; 
-    private double addedVAT; 
+    private double addedVAT;
     
     
      //Creates a new instance of Sale with current date and time, an empty list of items, and a SaleDTO with zero running total, zero VAT and null items.
@@ -81,5 +81,4 @@ public class Sale {
     public List<Item> getItems() {
         return items;
     }
-
 }

@@ -6,7 +6,7 @@ package se.kth.iv1350.integration;
  public class Item {
     private ItemDescription itemDescription; 
     private int itemIdentifier; 
-    private double quantity; 
+    public double quantity; 
     private double storeQuantity; 
 
     /**

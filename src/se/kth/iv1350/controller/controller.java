@@ -3,7 +3,6 @@ package se.kth.iv1350.controller;
 import logAPI.FileLogger;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*; 
-import java.time.LocalDateTime;
 
 /**
  * Creates the controller class. 
@@ -16,6 +15,7 @@ public class controller {
     private ExternalAccounting extAcc;
     public Printer printer; 
     private FileLogger logger;
+    public double quantity;
     
     /**
      * Creates an instance of controller
@@ -26,7 +26,7 @@ public class controller {
     public controller(ExternalInventory extInv, ExternalAccounting extAcc, Printer printer){
         this.extInv = extInv; 
         this.extAcc = extAcc;
-        this.printer = printer; 
+        this.printer = printer;  
         logger = new FileLogger();
     }
     /**
@@ -73,5 +73,11 @@ public class controller {
     public void getReceipt(){
         receipt = new Receipt(sale, payment); 
         printer.printReceipt(receipt);
+    }
+
+    public void endSale(){
+        for (Item item: sale.getItems()){
+           item.setQuantity(0.0);;
+        }
     }
 }
