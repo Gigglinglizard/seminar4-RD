@@ -53,6 +53,8 @@ public class controller {
      * @param itemIdentifier Requested item's ID number, used to compare and find items.
      * @param quantity Quantity of requested item for calculation. 
      * @return sale.getSaleInfo() returns the SaleDTO updated.
+     * @throws DatabaseFailureException Exception for when an invalid item id is entered
+     * @throws InvalidItemIdentifierException Simulated exception to represent a database could not be reached
      */
     public SaleDTO registerItem(int itemIdentifier, double quantity) throws DatabaseFailureException, InvalidItemIdentifierException{
         try{

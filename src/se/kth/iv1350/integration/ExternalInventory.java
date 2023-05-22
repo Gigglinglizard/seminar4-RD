@@ -41,6 +41,8 @@ public class ExternalInventory {
       Retrieves an Item object from the storeItems list based on its itemIdentifier.
       @param itemIdentifier the unique identifier of the item to be retrieved
       @return the Item object with the given itemIdentifier, or null if it is not found
+      @throws DatabaseFailureException Exception for when an invalid item id is entered
+      @throws InvalidItemIdentifierException Simulated exception to represent a database could not be reached
      */
     public Item retrieveItem(int itemIdentifier) throws DatabaseFailureException, InvalidItemIdentifierException{
         if (itemIdentifier == 6){

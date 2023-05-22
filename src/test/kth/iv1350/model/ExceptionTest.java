@@ -9,6 +9,9 @@ public class ExceptionTest {
     private int itemIdentifier;
     private ExternalInventory inventory;
     
+    /**
+     * Test to check functionality of InvalidItemIdentifierException, simulates a sale with a hardcoded item identifier not in the system.
+     */
     @Test
     public void testInvalidItemIdentifierException(){
         try{
@@ -22,6 +25,9 @@ public class ExceptionTest {
         }
     }
 
+    /**
+     * Test to check functionality of DatabaseFailureException, simulates a sale with a hardcoded failure condition.
+     */
     @Test
     public void testDatabaseFailureException(){
         try{
