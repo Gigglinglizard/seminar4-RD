@@ -9,6 +9,13 @@
             "name": "startup",
             "request": "launch",
             "mainClass": "se.kth.iv1350.startup.startup",
+            "projectName": "seminar4-RD_3d9f93d7"
+        },
+        {
+            "type": "java",
+            "name": "startup",
+            "request": "launch",
+            "mainClass": "se.kth.iv1350.startup.startup",
             "projectName": "seminar4-RD_7d1ca6a6"
         },
         {
