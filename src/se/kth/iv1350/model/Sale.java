@@ -83,6 +83,13 @@ public class Sale {
         return items;
     }
 
+    public void endSale(){
+        for (Item item: this.getItems()){
+           item.setQuantity(0.0);
+        }
+        notifyObservers(this.getSaleInfo().getRunningTotal());
+    }
+
     public void addSaleObserver(SaleObserver saleObserver){
         saleObservers.add(saleObserver);
     }

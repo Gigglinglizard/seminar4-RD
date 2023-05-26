@@ -7,13 +7,15 @@ import se.kth.iv1350.integration.InvalidItemIdentifierException;
 
 public class view {
     controller contr;
+    private TotalRevenueView totalRevenueView; 
     public view(controller contr){
         this.contr = contr;
+        totalRevenueView = new TotalRevenueView();
     }
     
     public void test(){
         try{
-            contr.startSale();
+            contr.startSale(totalRevenueView);
             contr.registerItem(2, 2.0);
             contr.registerItem(2, 2.0);
             contr.registerItem(3, 4.0);
@@ -31,11 +33,11 @@ public class view {
         contr.pay(600.0); 
         System.out.println("\n");
         contr.getReceipt();
-        contr.endSale(); 
+        contr.finishSale(); 
 
 
         try{
-            contr.startSale();
+            contr.startSale(totalRevenueView);
             contr.registerItem(4, 2.0);
             contr.registerItem(1, 2.0);
             contr.registerItem(3, 4.0);
@@ -50,7 +52,7 @@ public class view {
         contr.pay(600.0); 
         System.out.println("\n");
         contr.getReceipt();
-        contr.endSale(); 
+        contr.finishSale(); 
     }
 }
 

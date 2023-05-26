@@ -6,8 +6,6 @@ import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*;
 import se.kth.iv1350.view.TotalRevenueView;
 
-import java.util.*; 
-
 /**
  * Creates the controller class. 
  */
@@ -20,7 +18,6 @@ public class controller {
     public Printer printer; 
     private FileLogger logger;
     public double quantity; 
-    private TotalRevenueView totalRevenueView;
     private TotalRevenueFileOutput totalRevenueFileOutput;
     
     /**
@@ -35,13 +32,12 @@ public class controller {
         this.printer = printer;  
         logger = new FileLogger();
         totalRevenueFileOutput = new TotalRevenueFileOutput();
-        totalRevenueView = new TotalRevenueView();
     }
     /**
      * Creates a new Sale object and returns a SaleDTO object representing the current sale state.
      * @return sale.getSaleInfo() Returns the SaleDTO initialized at the beggining. 
      */
-    public SaleDTO startSale() {
+    public SaleDTO startSale(TotalRevenueView totalRevenueView) {
         
         this.sale = new Sale();
         sale.addSaleObserver(totalRevenueFileOutput);
@@ -78,7 +74,7 @@ public class controller {
     public void pay(double paidAmount){
         
         payment = new Payment(paidAmount, sale.getSaleInfo().getRunningTotal());
-        sale.notifyObservers(sale.getSaleInfo().getRunningTotal()); 
+        //sale.notifyObservers(sale.getSaleInfo().getRunningTotal()); 
         extAcc.updateAccounting(paidAmount);
         extInv.updateInventory(sale);
     }
@@ -87,10 +83,14 @@ public class controller {
         receipt = new Receipt(sale, payment); 
         printer.printReceipt(receipt);
     }
-
+/* 
     public void endSale(){
         for (Item item: sale.getItems()){
            item.setQuantity(0.0);
         }
+    }
+*/
+    public void finishSale(){
+        sale.endSale();
     }
 }
