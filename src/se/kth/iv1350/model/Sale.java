@@ -91,7 +91,7 @@ public class Sale {
     }
 
     public void addSaleObserver(List<SaleObserver> saleObservers){
-        saleObservers.addAll(saleObservers);
+        this.saleObservers.addAll(saleObservers);
     }
 
     public void notifyObservers(Double runningTotal){

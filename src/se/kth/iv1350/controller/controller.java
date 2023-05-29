@@ -18,7 +18,7 @@ public class controller {
     public Printer printer; 
     private FileLogger logger;
     public double quantity; 
-    public List<SaleObserver> saleObservers = new ArrayList<>(); 
+    private List<SaleObserver> saleObservers = new ArrayList<>(); 
     private TotalRevenueFileOutput totalRevenueFileOutput;
     
     /**
