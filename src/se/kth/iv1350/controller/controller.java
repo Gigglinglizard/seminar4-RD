@@ -1,10 +1,10 @@
 package se.kth.iv1350.controller;
 
+import java.util.*;
 import logAPI.FileLogger;
 import logAPI.TotalRevenueFileOutput;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*;
-import se.kth.iv1350.view.TotalRevenueView;
 
 /**
  * Creates the controller class. 
@@ -18,8 +18,7 @@ public class controller {
     public Printer printer; 
     private FileLogger logger;
     public double quantity; 
-    private TotalRevenueFileOutput totalRevenueFileOutput;
-    private TotalRevenueView totalRevenueView;
+    private List<SaleObserver> saleObservers = new ArrayList<>(); 
     
     /**
      * Creates an instance of controller
@@ -32,7 +31,7 @@ public class controller {
         this.extAcc = extAcc;
         this.printer = printer;  
         logger = new FileLogger();
-        totalRevenueFileOutput = new TotalRevenueFileOutput();
+        saleObservers.add(new TotalRevenueFileOutput());
     }
     /**
      * Creates a new Sale object and returns a SaleDTO object representing the current sale state.
@@ -40,8 +39,7 @@ public class controller {
      */
     public SaleDTO startSale() {
         this.sale = new Sale();
-        sale.addSaleObserver(totalRevenueFileOutput);
-        sale.addSaleObserver(totalRevenueView);
+        sale.addSaleObserver(saleObservers);
         return sale.getSaleInfo();
     }
     /**
@@ -84,11 +82,11 @@ public class controller {
     }
 
     /**
-     * Designates the totalRevenueView Observer 
-     * @param totalRevenueView The View observer 
+     * Designates a SaleObserver
+     * @param saleObserver The observer 
      */
-    public void addObserver(TotalRevenueView totalRevenueView){ 
-        this.totalRevenueView = totalRevenueView;
+    public void addObserver(SaleObserver saleObserver){ 
+        saleObservers.add(saleObserver);
     }
 
     public void finishSale(){

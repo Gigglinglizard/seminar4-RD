@@ -90,8 +90,8 @@ public class Sale {
         notifyObservers(this.getSaleInfo().getRunningTotal());
     }
 
-    public void addSaleObserver(SaleObserver saleObserver){
-        saleObservers.add(saleObserver);
+    public void addSaleObserver(List<SaleObserver> saleObservers){
+        saleObservers.addAll(saleObservers);
     }
 
     public void notifyObservers(Double runningTotal){
