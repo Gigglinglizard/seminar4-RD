@@ -19,6 +19,7 @@ public class controller {
     private FileLogger logger;
     public double quantity; 
     private TotalRevenueFileOutput totalRevenueFileOutput;
+    private TotalRevenueView totalRevenueView;
     
     /**
      * Creates an instance of controller
@@ -37,8 +38,7 @@ public class controller {
      * Creates a new Sale object and returns a SaleDTO object representing the current sale state.
      * @return sale.getSaleInfo() Returns the SaleDTO initialized at the beggining. 
      */
-    public SaleDTO startSale(TotalRevenueView totalRevenueView) {
-        
+    public SaleDTO startSale() {
         this.sale = new Sale();
         sale.addSaleObserver(totalRevenueFileOutput);
         sale.addSaleObserver(totalRevenueView);
@@ -74,7 +74,6 @@ public class controller {
     public void pay(double paidAmount){
         
         payment = new Payment(paidAmount, sale.getSaleInfo().getRunningTotal());
-        //sale.notifyObservers(sale.getSaleInfo().getRunningTotal()); 
         extAcc.updateAccounting(paidAmount);
         extInv.updateInventory(sale);
     }
@@ -83,13 +82,15 @@ public class controller {
         receipt = new Receipt(sale, payment); 
         printer.printReceipt(receipt);
     }
-/* 
-    public void endSale(){
-        for (Item item: sale.getItems()){
-           item.setQuantity(0.0);
-        }
+
+    /**
+     * Designates the totalRevenueView Observer 
+     * @param totalRevenueView The View observer 
+     */
+    public void addObserver(TotalRevenueView totalRevenueView){ 
+        this.totalRevenueView = totalRevenueView;
     }
-*/
+
     public void finishSale(){
         sale.endSale();
     }

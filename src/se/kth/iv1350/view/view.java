@@ -1,6 +1,5 @@
 package se.kth.iv1350.view;
 
-
 import se.kth.iv1350.controller.*; 
 import se.kth.iv1350.integration.DatabaseFailureException;
 import se.kth.iv1350.integration.InvalidItemIdentifierException;
@@ -11,11 +10,12 @@ public class view {
     public view(controller contr){
         this.contr = contr;
         totalRevenueView = new TotalRevenueView();
+        contr.addObserver(totalRevenueView);
     }
     
     public void test(){
         try{
-            contr.startSale(totalRevenueView);
+            contr.startSale();
             contr.registerItem(2, 2.0);
             contr.registerItem(2, 2.0);
             contr.registerItem(3, 4.0);
@@ -37,7 +37,7 @@ public class view {
 
 
         try{
-            contr.startSale(totalRevenueView);
+            contr.startSale();
             contr.registerItem(4, 2.0);
             contr.registerItem(1, 2.0);
             contr.registerItem(3, 4.0);
