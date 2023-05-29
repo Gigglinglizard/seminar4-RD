@@ -1,5 +1,6 @@
 package se.kth.iv1350.view;
 
+import logAPI.TotalRevenueFileOutput;
 import se.kth.iv1350.controller.*; 
 import se.kth.iv1350.integration.DatabaseFailureException;
 import se.kth.iv1350.integration.InvalidItemIdentifierException;

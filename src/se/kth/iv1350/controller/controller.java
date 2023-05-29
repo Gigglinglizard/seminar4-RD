@@ -18,7 +18,8 @@ public class controller {
     public Printer printer; 
     private FileLogger logger;
     public double quantity; 
-    private List<SaleObserver> saleObservers = new ArrayList<>(); 
+    public List<SaleObserver> saleObservers = new ArrayList<>(); 
+    private TotalRevenueFileOutput totalRevenueFileOutput;
     
     /**
      * Creates an instance of controller
@@ -31,7 +32,8 @@ public class controller {
         this.extAcc = extAcc;
         this.printer = printer;  
         logger = new FileLogger();
-        saleObservers.add(new TotalRevenueFileOutput());
+        totalRevenueFileOutput = new TotalRevenueFileOutput();
+        saleObservers.add(totalRevenueFileOutput); 
     }
     /**
      * Creates a new Sale object and returns a SaleDTO object representing the current sale state.
